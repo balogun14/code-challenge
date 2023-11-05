@@ -8,7 +8,8 @@ class Program
     {
         try
         {
-            MaximumProfit();
+           // MaximumProfit();
+           TotalProfit();
         }
         catch (FormatException fx)
         {
@@ -22,11 +23,11 @@ class Program
     public static void MaximumProfit()
     {
         // Finding the maximum profit you can achieve
+        /*
+        Time Complexity: o(n)
+        */
         int maximumProfit = 0;
-        Console.Write("What is the number of elements: ");
-        var n = int.TryParse(Console.ReadLine()!, out int number);
-        var pricesArray = new int[number];
-        ArrayInput(pricesArray, n);
+        var pricesArray = ArrayInput();
         for (int j = 0; j < pricesArray.Length - 1; j++)
         {
             if (pricesArray[j] < pricesArray[j + 1])
@@ -40,13 +41,26 @@ class Program
     }
     public static void TotalProfit()
     {
-
+        var pricesArray = ArrayInput();
+        int firstDay = pricesArray[0];
+        int lastDay = pricesArray[^1];
+        int result = lastDay - firstDay;
+        if (result > 0)
+        {
+            Console.WriteLine("Total Profit is {0}", result);
+            return;
+        }
+        Console.WriteLine("Total Profit is 0");
     }
-    public static void ArrayInput(int[] pricesArray, bool n)
+    public static int[] ArrayInput()
     {
         var element = true;
-        n = int.TryParse(Console.ReadLine()!, out int number);
-        pricesArray = new int[number];
+        Console.Write("What is the number of elements: ");
+        var n = int.TryParse(Console.ReadLine()!, out int number);
+        var pricesArray = new int[number];
+        /*
+        Time Complexity: o(n^2)
+        */
         for (int i = 0; i < number; i++)
         {
             do
@@ -60,5 +74,6 @@ class Program
                 pricesArray[i] = ele;
             } while (!element);
         }
+        return pricesArray;
     }
 }
