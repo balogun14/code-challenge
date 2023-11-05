@@ -1,4 +1,5 @@
 ﻿/*
+Code challenge Solutions
 */
 
 class Program
@@ -21,11 +22,31 @@ class Program
     public static void MaximumProfit()
     {
         // Finding the maximum profit you can achieve
-        var element = true;
         int maximumProfit = 0;
         Console.Write("What is the number of elements: ");
         var n = int.TryParse(Console.ReadLine()!, out int number);
         var pricesArray = new int[number];
+        ArrayInput(pricesArray, n);
+        for (int j = 0; j < pricesArray.Length - 1; j++)
+        {
+            if (pricesArray[j] < pricesArray[j + 1])
+            {
+                maximumProfit += pricesArray[j + 1] - pricesArray[j];
+            }
+        }
+        Console.WriteLine("Maximum profit is: " + maximumProfit);
+
+
+    }
+    public static void TotalProfit()
+    {
+
+    }
+    public static void ArrayInput(int[] pricesArray, bool n)
+    {
+        var element = true;
+        n = int.TryParse(Console.ReadLine()!, out int number);
+        pricesArray = new int[number];
         for (int i = 0; i < number; i++)
         {
             do
@@ -39,15 +60,5 @@ class Program
                 pricesArray[i] = ele;
             } while (!element);
         }
-        for (int j = 0; j < pricesArray.Length - 1; j++)
-        {
-            if (pricesArray[j] < pricesArray[j + 1])
-            {
-                maximumProfit += pricesArray[j + 1] - pricesArray[j];
-            }
-        }
-        Console.WriteLine("Maximum profit is: " + maximumProfit);
-
-
     }
 }
