@@ -8,8 +8,8 @@ class Program
     {
         try
         {
-           // MaximumProfit();
-           TotalProfit();
+            // MaximumProfit();
+            TotalProfit();
         }
         catch (FormatException fx)
         {
@@ -75,5 +75,21 @@ class Program
             } while (!element);
         }
         return pricesArray;
+    }
+    public static bool CanJump(int[] nums)
+    {
+        /*
+        Time Complexity: o(n)
+        Space Complexity: o(n)
+        */
+        int lastPosition = nums.Length - 1;
+        for (int i = nums.Length - 1; i >= 0; i--)
+        {
+            if (i + nums[i] >= lastPosition)
+            {
+                lastPosition = i;
+            }
+        }
+        return lastPosition == 0;
     }
 }
