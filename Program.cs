@@ -92,35 +92,45 @@ class Program
         }
         return lastPosition == 0;
     }
-    public static void LongestPalindrome(string word)
+    public void LongestPalindrome(string word)
     {
-        int length = word.Length;
-        // All subStrings of length 1
-        // are palindromes
-        int maxLength = 1;
-        int  start = 0;
-        // using nested for loops to mark start and end index
+                /*
+        Time Complexity: o(n^2)
+        Space Complexity: o(1)
+        */
+        if (word == null || word.Length < 1)
+        {
+            Console.WriteLine("");
+            return;
+        }
+
+        int start = 0;
+        int end = 0;
+
         for (int i = 0; i < word.Length; i++)
         {
-            for (int j = i; j < word.Length; j++)
+            int len1 = ExpandAroundCenter(word, i, i);
+            int len2 = ExpandAroundCenter(word, i, i + 1);
+            int len = Math.Max(len1, len2);
+
+            if (len > end - start)
             {
-                int flag = 1;
-
-                // Check palindrome
-                for (int k = 0; k < (j - i + 1) / 2; k++)
-                    if (word[i + k] != word[j - k])
-                        flag = 0;
-
-                // Palindrome
-                if (flag != 0 && (j - i + 1) > maxLength)
-                {
-                    start = i;
-                    maxLength = j - i + 1;
-                }
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
             }
         }
-        Console.Write("Longest palindrome substring is: ");
-        PrintSubStr(word, start, start + maxLength - 1);
+        PrintSubStr(word,start,end - start + 1);
+        // return word.Substring(start, end - start + 1);
+    }
+
+    private int ExpandAroundCenter(string s, int left, int right)
+    {
+        while (left >= 0 && right < s.Length && s[left] == s[right])
+        {
+            left--;
+            right++;
+        }
+        return right - left - 1;
     }
 
     private static void PrintSubStr(string word, int start, int v)
@@ -128,7 +138,7 @@ class Program
         for (int i = start; i < v; i++)
         {
             Console.WriteLine(word[i]);
-            
+
         }
     }
 
